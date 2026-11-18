@@ -5,7 +5,6 @@ on:
   pull_request:
   push:
     branches-ignore: ['version-*']
-    tags: ['v*']
 
 permissions:
   contents: read
@@ -22,17 +21,17 @@ jobs:
 
   build:
     runs-on: ubuntu-24.04
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: seanmiddleditch/gha-setup-ninja@v5
       - uses: Fernthedev/qpm-action@v2
-        with:
-          publish: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && 'late' || '' }}
-          publish_token: ${{ secrets.QPM_TOKEN }}
       - name: Build package
         run: qpm2 qpkg --qmod
+      - name: Verify packaged library
+        run: |
+          python3 -c "from pathlib import Path; from zipfile import ZipFile; binary = Path('build/libflamingo.so').read_bytes(); assert ZipFile('flamingo.qpkg').read('bin/libflamingo.so') == binary; assert ZipFile('flamingo.qmod').read('libflamingo.so') == binary"
       - name: Name debug artifact
         run: cp build/debug/libflamingo.so build/debug_libflamingo.so
       - uses: actions/upload-artifact@v4
@@ -44,9 +43,3 @@ jobs:
             flamingo.qmod
             flamingo.qpkg
           if-no-files-found: error
-      - name: Upload debug release artifact
-        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v0.1.15
-        with:
-          tag_name: ${{ github.ref_name }}
-          files: build/debug_libflamingo.so

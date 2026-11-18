@@ -17,9 +17,7 @@
       ]
     },
     "ndk": "^29.0.14206865",
-    "outBinaries": [
-      "build/libflamingo.so"
-    ],
+    "outBinary": "build/libflamingo.so",
     "toolchainOut": null,
     "cmake": false
   },

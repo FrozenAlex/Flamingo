@@ -22,7 +22,9 @@
         ]
       },
       "ndk": "^29.0.14206865",
-      "outBinary": "build/libflamingo.so",
+      "outBinaries": [
+        "build/libflamingo.so"
+      ],
       "cmake": false
     },
     "qmod": {
@@ -59,19 +61,19 @@
     }
   },
   "restoredDependencies": {
-    "capstone": {
-      "restoredVersion": "5.0.9",
-      "qpkgChecksum": "d5f0bc088755b2b9e5cea50eedc6a2ea0561f3ec6e845efb981291eb1458db2b",
+    "scotland2": {
+      "restoredVersion": "0.1.7",
+      "qpkgChecksum": "7e0beaa86e51a9b4b477841c59e99823493cb62dc4fa8d2cef793aab80e93dcd",
       "restoredBinaries": [
-        "libcapstone.a"
+        "build/libsl2.so"
       ],
       "restoredEnv": {}
     },
-    "scotland2": {
-      "restoredVersion": "0.1.7",
-      "qpkgChecksum": "879ce2c269b3c9bb24c4008c2dfc0efa8052b9e9f246f0eb773ffadc0c307e9d",
+    "capstone": {
+      "restoredVersion": "5.0.9",
+      "qpkgChecksum": "f28c2210107ade447dfd8f4e357503108de41ab1c7fdae3c01e594355a267efb",
       "restoredBinaries": [
-        "build/libsl2.so"
+        "libcapstone.a"
       ],
       "restoredEnv": {}
     },
